@@ -33,7 +33,7 @@ export class MoviesService {
     return `added ${movieData.title} data!, ${this.movies[R-1].id}번 게시글로 생성` 
   }
 
-  update(id: string, updateData) {
+  update(id: number, updateData) {
     const movie = this.getOne(id)
     this.deleteOne(id)
     this.movies.push({...movie, ...updateData})
