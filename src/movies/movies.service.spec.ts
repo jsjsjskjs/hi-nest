@@ -40,4 +40,38 @@ describe('MoviesService', () => {
       }
     })
   })
+
+  describe('deleteOne', () => {
+    it('deletes a movie', () => {
+      service.create({
+        title: 'test movie',
+        genres: ['test'],
+        year: 2000
+      })
+      const beforeMovies = service.getAll().length
+      service.deleteOne(1)
+      const afterDelete = service.getAll().length
+      expect(afterDelete).toBeLessThan(beforeMovies)
+    })
+    it('404 리턴을 받아야 됩니다', () => {
+      try {
+        service.deleteOne(1000)
+      } catch (error) {
+        expect(error).toBeInstanceOf(NotFoundException)
+      }
+    })
+  })
+
+  describe('create', () => {
+    it('should create a movie', () => {
+      const beforeCreate = service.getAll().length
+      service.create({
+        title: 'test movie',
+        genres: ['test'],
+        year: 2000
+      })
+      const afterCreate = service.getAll().length
+      expect(afterCreate).toBeGreaterThan(beforeCreate)
+    })
+  })
 })
